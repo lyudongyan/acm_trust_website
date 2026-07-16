@@ -38,7 +38,7 @@ function buildHeader() {
           <a href="https://eigtrust.acm.org/trust2027/" target="_blank" rel="noopener">Official conference site</a>
         </div>
       </div>
-      <div class="conference-header" rt-liquid-glass rt-liquid-glass-blur="14" rt-liquid-glass-scale="34" rt-liquid-glass-map="512" rt-liquid-glass-tint="rgba(255,255,255,.42)">
+      <div class="conference-header" rt-liquid-glass rt-liquid-glass-blur="11" rt-liquid-glass-scale="30" rt-liquid-glass-map="512" rt-liquid-glass-tint="rgba(255,255,255,.24)">
         <a class="conference-brand" href="index.html" aria-label="ACM Trust 2027 home">
           <span class="brand-copy">
             <strong>ACM Trust 2027</strong>
@@ -86,7 +86,6 @@ function buildFooter() {
           <strong>REED-AI 2027</strong>
           <p>Responsible, Explainable, and Ethical-by-Design AI in Clinical Applications</p>
         </div>
-        <p class="source-note">Content is based on the REED-AI proposal and the official ACM Trust 2027 site. Washington imagery: public-domain USGS photographs by Alex Demas and Jessica Robertson. Institutional names on person profiles identify individual affiliations and do not imply site sponsorship.</p>
       </div>
     </footer>`;
 }
@@ -114,10 +113,10 @@ function buildMastheadDetails() {
   if (!masthead || !panel || !title) return;
 
   panel.setAttribute("rt-liquid-glass", "");
-  panel.setAttribute("rt-liquid-glass-blur", "12");
-  panel.setAttribute("rt-liquid-glass-scale", "46");
+  panel.setAttribute("rt-liquid-glass-blur", "10");
+  panel.setAttribute("rt-liquid-glass-scale", "38");
   panel.setAttribute("rt-liquid-glass-map", "640");
-  panel.setAttribute("rt-liquid-glass-tint", "rgba(255,255,255,.34)");
+  panel.setAttribute("rt-liquid-glass-tint", "rgba(255,255,255,.20)");
   panel.setAttribute("rt-liquid-glass-fallback-blur", "18");
 
   const originalTitle = title.textContent.trim();
@@ -133,24 +132,6 @@ function buildMastheadDetails() {
   index.textContent = `0${currentPageIndex + 1}`;
   panel.prepend(index);
 
-  const scrollHint = document.createElement("span");
-  scrollHint.className = "hero-scroll";
-  scrollHint.setAttribute("aria-hidden", "true");
-  scrollHint.textContent = "Explore";
-  masthead.append(scrollHint);
-}
-
-function buildResearchMarquee() {
-  if (pageKey !== "home") return;
-  const hero = document.querySelector(".home-hero");
-  if (!hero) return;
-  const items = ["Explainable AI", "Medical Imaging AI", "Clinical Decision Support", "Federated Learning", "Foundation Models", "AI Governance & Ethics"];
-  const repeated = [...items, ...items].map(item => `<span>${item}</span>`).join("");
-  const marquee = document.createElement("div");
-  marquee.className = "research-marquee";
-  marquee.setAttribute("aria-hidden", "true");
-  marquee.innerHTML = `<div class="research-marquee-track">${repeated}</div>`;
-  hero.after(marquee);
 }
 
 const topics = [
@@ -258,6 +239,12 @@ function renderDates() {
   }
 }
 
+function simplifyLabels() {
+  const eventDate = document.querySelector(".home-hero .eyebrow");
+  if (eventDate) eventDate.className = "event-date";
+  document.querySelectorAll(".eyebrow").forEach(label => label.remove());
+}
+
 function setupMenu() {
   const menuToggle = document.querySelector(".menu-toggle");
   if (!menuToggle) return;
@@ -297,7 +284,6 @@ function setupAnchorNavigation() {
 function setupRevealMotion() {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const selectors = [
-    ".content-section .eyebrow",
     ".content-section .section-heading",
     ".content-section .section-lead",
     ".content-section .prose",
@@ -310,14 +296,12 @@ function setupRevealMotion() {
     ".side-card",
     ".sponsor-placeholder",
     ".date-table-wrap",
-    ".official-link",
-    ".status-note"
+    ".official-link"
   ];
   const elements = [...document.querySelectorAll(selectors.join(","))];
   elements.forEach((element, index) => {
     element.classList.add("reveal");
     element.style.setProperty("--reveal-delay", `${(index % 5) * 55}ms`);
-    if (element.matches(".content-section .eyebrow")) element.classList.add("from-left");
   });
 
   if (reduceMotion || !("IntersectionObserver" in window)) {
@@ -337,11 +321,12 @@ function setupRevealMotion() {
 
 function setupLiquidGlass() {
   const presets = [
-    [".side-card", { blur: 15, scale: 42, map: 420, tint: "rgba(0,53,148,.38)" }],
-    [".person-copy", { blur: 14, scale: 34, map: 360, tint: "rgba(255,255,255,.38)" }],
-    [".status-note", { blur: 13, scale: 32, map: 480, tint: "rgba(255,255,255,.36)" }],
-    [".sponsor-placeholder", { blur: 16, scale: 40, map: 560, tint: "rgba(255,255,255,.34)" }],
-    [".topic-search", { blur: 10, scale: 24, map: 320, tint: "rgba(255,255,255,.26)" }]
+    [".side-card", { blur: 12, scale: 34, map: 480, tint: "rgba(255,255,255,.20)" }],
+    [".person-copy", { blur: 11, scale: 30, map: 420, tint: "rgba(255,255,255,.18)" }],
+    [".sponsor-placeholder", { blur: 12, scale: 32, map: 640, tint: "rgba(255,255,255,.16)" }],
+    [".topic-search", { blur: 9, scale: 24, map: 380, tint: "rgba(255,255,255,.14)" }],
+    [".date-table-wrap", { blur: 10, scale: 28, map: 720, tint: "rgba(255,255,255,.12)" }],
+    [".timeline", { blur: 10, scale: 30, map: 720, tint: "rgba(255,255,255,.12)" }]
   ];
 
   presets.forEach(([selector, options]) => {
@@ -396,9 +381,9 @@ function setupNeuralField() {
       scaleMobile: .72,
       color: 0x106eea,
       backgroundColor: 0xf4f8fe,
-      points: 9,
-      maxDistance: 21,
-      spacing: 18,
+      points: 10,
+      maxDistance: 25,
+      spacing: 17,
       showDots: true
     });
     window.addEventListener("pagehide", () => effect?.destroy(), { once: true });
@@ -470,14 +455,14 @@ function setupScrollThreads() {
         lastX = x;
       }
       context.strokeStyle = index % 4 === 0
-        ? `rgba(255,184,28,${.08 + progress * .11})`
-        : `rgba(16,110,234,${.06 + progress * .09})`;
-      context.lineWidth = index % 3 === 0 ? 1.15 : .75;
+        ? `rgba(255,184,28,${.11 + progress * .13})`
+        : `rgba(16,110,234,${.10 + progress * .12})`;
+      context.lineWidth = index % 3 === 0 ? 1.35 : .9;
       context.stroke();
 
       context.beginPath();
       context.arc(lastX, Math.max(0, endY), 1.8 + Math.sin(time * .002 + index) * .5, 0, Math.PI * 2);
-      context.fillStyle = index % 4 === 0 ? "rgba(255,184,28,.32)" : "rgba(16,110,234,.24)";
+      context.fillStyle = index % 4 === 0 ? "rgba(255,184,28,.42)" : "rgba(16,110,234,.34)";
       context.fill();
     }
     frame = window.requestAnimationFrame(draw);
@@ -586,8 +571,8 @@ buildHeader();
 buildSidebar();
 buildFooter();
 buildPageFlow();
+simplifyLabels();
 buildMastheadDetails();
-buildResearchMarquee();
 renderSubmissions();
 renderTopics();
 renderDates();

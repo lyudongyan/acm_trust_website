@@ -5,8 +5,7 @@ const pages = [
   ["workshop", "Workshop Description", "workshop-description.html"],
   ["papers", "Call for Papers", "call-for-papers.html"],
   ["dates", "Important Dates", "important-dates.html"],
-  ["speakers", "Speakers", "speakers.html"],
-  ["committee", "Organizing Committee", "organizing-committee.html"],
+  ["people", "People", "people.html"],
   ["sponsors", "Sponsors", "sponsors.html"]
 ];
 
@@ -14,8 +13,7 @@ const sidebarLinks = {
   workshop: [["scope", "Track Scope"], ["motivation", "Motivation"], ["objectives", "Learning Objectives"], ["program", "Program"], ["sustainability", "Sustainability"]],
   papers: [["submission-types", "Submission Types"], ["topics", "Topics of Interest"], ["guidelines", "Guidelines"]],
   dates: [["timeline", "Submission Timeline"], ["conference", "Conference Dates"]],
-  speakers: [["keynote-speakers", "Keynote Speakers"]],
-  committee: [["event-organizers", "Event Organizers"], ["webmasters", "Webmasters"]],
+  people: [["event-organizers", "Organizing Committee"], ["speakers", "Speakers"], ["webmasters", "Webmasters"]],
   sponsors: [["sponsor-information", "Sponsor Information"], ["partnership", "Partnership"]]
 };
 
@@ -174,31 +172,37 @@ const dates = [
 ];
 
 const eventOrganizers = [
-  { name: "Ahmad P. Tafti, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.jpg", bio: "Health informatics and trustworthy, explainable AI for clinical applications." },
-  { name: "Yanshan Wang, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.jpg", bio: "Generative AI and natural language processing in healthcare." },
-  { name: "Shyam Visweswaran, MD, PhD", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.png", bio: "Clinical decision support and ethically grounded clinical algorithms." },
-  { name: "Armaghan Moemeni, PhD, SFHEA", role: "Event Organizer", affiliation: "University of Nottingham", initials: "AM", bio: "Robust and interpretable machine learning for healthcare." },
-  { name: "Michael Strange, PhD", role: "Event Organizer", affiliation: "Malm&ouml; University", initials: "MS", bio: "AI politics, trust, democracy, ethics, and participation." },
-  { name: "Prashnna K. Gyawali", role: "Event Organizer", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.jpg", bio: "Reliable and trustworthy AI systems for critical domains." }
+  { name: "Ahmad P. Tafti, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp", bio: "Health informatics and trustworthy, explainable AI for clinical applications." },
+  { name: "Yanshan Wang, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp", bio: "Generative AI and natural language processing in healthcare." },
+  { name: "Shyam Visweswaran, MD, PhD", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp", bio: "Clinical decision support and ethically grounded clinical algorithms." },
+  { name: "Armaghan Moemeni, PhD, SFHEA", role: "Event Organizer", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp", bio: "Robust and interpretable machine learning for healthcare.", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
+  { name: "Michael Strange, PhD", role: "Event Organizer", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp", bio: "AI politics, trust, democracy, ethics, and participation.", link: "https://mau.se/en/persons/michael.strange/" },
+  { name: "Prashnna K. Gyawali", role: "Event Organizer", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.webp", bio: "Reliable and trustworthy AI systems for critical domains." }
 ];
 
-const invitedSpeakers = [
-  { name: "Yiye Zhang, PhD", role: "Keynote Speaker", affiliation: "Weill Cornell Medicine", initials: "YZ", bio: "Speaker bio and photo details can be updated when provided.", link: "https://www.yiyezhang.com" },
-  { name: "Rema Padman, PhD", role: "Keynote Speaker", affiliation: "Carnegie Mellon University", image: "assets/images/rema-padman.jpg", bio: "Speaker bio and photo details can be updated when provided.", link: "https://www.heinz.cmu.edu/faculty-research/profiles/padman-rema" }
+const speakers = [
+  { name: "Sagnik Dakshit, PhD", role: "Program Committee Member", affiliation: "Kennesaw State University", image: "assets/images/sagnik-dakshit.webp", link: "https://www.sagnikdakshit.com/" },
+  { name: "Ayse Tekes, PhD", role: "Program Committee Member", affiliation: "Kennesaw State University", image: "assets/images/ayse-tekes.webp", link: "https://campus.kennesaw.edu/offices-services/research/about/contact.php" },
+  { name: "Faezeh Rohani, PhD", role: "Program Committee Member", affiliation: "&Uuml;sk&uuml;dar University", image: "assets/images/faezeh-rohani.webp" },
+  { name: "Husam Ghazaleh, PhD", role: "Program Committee Member", affiliation: "Benedictine University", image: "assets/images/husam-ghazaleh.webp" },
+  { name: "Maedeh Agharazidermani, PhD", role: "Program Committee Member", affiliation: "Florida State University", image: "assets/images/maedeh-agharazi.webp" },
+  { name: "Zeyun Yu, PhD", role: "Program Committee Member", affiliation: "University of Wisconsin-Milwaukee", image: "assets/images/zeyun-yu.webp" },
+  { name: "Yiye Zhang, PhD", role: "Potential Invited Speaker", affiliation: "Weill Cornell Medicine", image: "assets/images/yiye-zhang.webp", link: "https://www.yiyezhang.com/" },
+  { name: "Rema Padman, PhD", role: "Potential Invited Speaker", affiliation: "Carnegie Mellon University", image: "assets/images/rema-padman.webp", link: "https://www.heinz.cmu.edu/faculty-research/profiles/padman-rema" }
 ];
 
 const webmasters = [
-  { name: "Farnaz Rezvani, MS", role: "Webmaster", affiliation: "IEEE Member", image: "assets/images/farnaz-rezvani.png" },
-  { name: "Lyudong Yan", role: "Webmaster", affiliation: "Website Team", image: "assets/images/lyudong-yan.png" }
+  { name: "Farnaz Rezvani, MS", role: "Webmaster", affiliation: "IEEE Member", image: "assets/images/farnaz-rezvani.webp" },
+  { name: "Lyudong Yan", role: "Webmaster", affiliation: "Website Team", image: "assets/images/lyudong-yan.webp" }
 ];
 
 function renderPerson(person) {
   const visual = person.image
-    ? `<img src="${person.image}" alt="Portrait of ${person.name}" loading="lazy" decoding="async">`
+    ? `<img src="${person.image}" alt="Portrait of ${person.name}" width="640" height="800" loading="lazy" decoding="async" fetchpriority="low">`
     : `<span class="initials" aria-label="Photo not available">${person.initials || "?"}</span>`;
   const bio = person.bio ? `<p class="bio">${person.bio}</p>` : "";
   const link = person.link ? `<a href="${person.link}" target="_blank" rel="noopener">View profile</a>` : "";
-  return `<article class="person-card"><div class="person-photo">${visual}</div><div class="person-copy"><span class="role">${person.role}</span><h3>${person.name}</h3><span class="affiliation">${person.affiliation}</span>${bio}${link}</div></article>`;
+  return `<article class="person-card" tabindex="0"><div class="person-photo">${visual}</div><div class="person-copy"><span class="role">${person.role}</span><h3>${person.name}</h3><span class="affiliation">${person.affiliation}</span>${bio}${link}</div></article>`;
 }
 
 function renderPeople(selector, people) {
@@ -322,7 +326,6 @@ function setupRevealMotion() {
 function setupLiquidGlass() {
   const presets = [
     [".side-card", { blur: 12, scale: 34, map: 480, tint: "rgba(255,255,255,.20)" }],
-    [".person-copy", { blur: 11, scale: 30, map: 420, tint: "rgba(255,255,255,.18)" }],
     [".sponsor-placeholder", { blur: 12, scale: 32, map: 640, tint: "rgba(255,255,255,.16)" }],
     [".topic-search", { blur: 9, scale: 24, map: 380, tint: "rgba(255,255,255,.14)" }],
     [".date-table-wrap", { blur: 10, scale: 28, map: 720, tint: "rgba(255,255,255,.12)" }],
@@ -354,6 +357,20 @@ function setupLiquidGlass() {
     });
   });
 
+  document.querySelectorAll(".person-card").forEach(card => {
+    card.addEventListener("pointermove", event => {
+      const rect = card.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / Math.max(1, rect.width)) * 100;
+      const y = ((event.clientY - rect.top) / Math.max(1, rect.height)) * 100;
+      card.style.setProperty("--glass-x", `${x.toFixed(1)}%`);
+      card.style.setProperty("--glass-y", `${y.toFixed(1)}%`);
+    }, { passive: true });
+    card.addEventListener("pointerleave", () => {
+      card.style.setProperty("--glass-x", "20%");
+      card.style.setProperty("--glass-y", "14%");
+    });
+  });
+
   const refresh = () => window.rtLiquidGlass?.refresh();
   document.addEventListener("DOMContentLoaded", () => window.setTimeout(refresh, 0), { once: true });
   window.addEventListener("load", refresh, { once: true });
@@ -367,23 +384,25 @@ function setupNeuralField() {
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduceMotion || !window.VANTA?.NET || !window.THREE) return;
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const lowPower = Boolean(connection?.saveData || (navigator.deviceMemory && navigator.deviceMemory <= 4));
 
   try {
     const effect = window.VANTA.NET({
       el: field,
       THREE: window.THREE,
-      mouseControls: true,
-      touchControls: true,
+      mouseControls: !lowPower,
+      touchControls: !lowPower,
       gyroControls: false,
       minHeight: 200,
       minWidth: 200,
       scale: 1,
-      scaleMobile: .72,
+      scaleMobile: .62,
       color: 0x106eea,
       backgroundColor: 0xf4f8fe,
-      points: 10,
-      maxDistance: 25,
-      spacing: 17,
+      points: lowPower ? 6 : 9,
+      maxDistance: lowPower ? 18 : 23,
+      spacing: lowPower ? 21 : 18,
       showDots: true
     });
     window.addEventListener("pagehide", () => effect?.destroy(), { once: true });
@@ -403,6 +422,9 @@ function setupSectionTraces() {
 
 function setupScrollThreads() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const lowPower = Boolean(connection?.saveData || (navigator.deviceMemory && navigator.deviceMemory <= 4));
+  if (lowPower) return;
 
   const canvas = document.createElement("canvas");
   canvas.className = "scroll-thread-canvas";
@@ -416,6 +438,7 @@ function setupScrollThreads() {
   let height = 0;
   let density = 1;
   let frame = 0;
+  let lastDraw = 0;
 
   const resize = () => {
     density = Math.min(2, window.devicePixelRatio || 1);
@@ -427,6 +450,9 @@ function setupScrollThreads() {
   };
 
   const draw = time => {
+    frame = window.requestAnimationFrame(draw);
+    if (document.hidden || time - lastDraw < 32) return;
+    lastDraw = time;
     const scrollable = Math.max(1, document.documentElement.scrollHeight - height);
     const progress = Math.max(0, Math.min(1, window.scrollY / scrollable));
     const reveal = Math.min(1, .08 + progress * 1.34);
@@ -465,7 +491,6 @@ function setupScrollThreads() {
       context.fillStyle = index % 4 === 0 ? "rgba(255,184,28,.42)" : "rgba(16,110,234,.34)";
       context.fill();
     }
-    frame = window.requestAnimationFrame(draw);
   };
 
   window.addEventListener("pointermove", event => {
@@ -577,7 +602,7 @@ renderSubmissions();
 renderTopics();
 renderDates();
 renderPeople("#event-organizer-grid", eventOrganizers);
-renderPeople("#keynote-grid", invitedSpeakers);
+renderPeople("#speaker-grid", speakers);
 renderPeople("#webmaster-grid", webmasters);
 setupLiquidGlass();
 setupNeuralField();

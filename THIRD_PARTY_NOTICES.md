@@ -29,3 +29,14 @@ The website vendors the following open-source browser effects locally.
 The custom scroll-thread canvas, section traces, styling, and integration code
 in static/js/index.js and static/css/index.css were written specifically for
 the REED-AI 2027 website.
+
+## Portrait source records
+
+The following public profile images were converted locally to WebP for the
+People page. These links record the source pages used to identify each person.
+
+- Armaghan Moemeni: https://scholar.google.com/citations?user=-HmwafMAAAAJ&hl=en
+- Michael Strange: https://mau.se/en/persons/michael.strange/
+- Sagnik Dakshit: https://www.tcu.edu/innovation/network/texas-innovation-conference-awards/awards.php
+- Ayse Tekes: https://campus.kennesaw.edu/offices-services/research/about/contact.php
+- Yiye Zhang: https://ecornell.cornell.edu/certificates/healthcare/ai-in-healthcare/

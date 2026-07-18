@@ -5,7 +5,8 @@ const pages = [
   ["workshop", "Workshop Description", "workshop-description.html"],
   ["papers", "Call for Papers", "call-for-papers.html"],
   ["dates", "Important Dates", "important-dates.html"],
-  ["people", "People", "people.html"],
+  ["speakers", "Speakers", "speakers.html"],
+  ["committee", "Organizing Committee", "organizing-committee.html"],
   ["sponsors", "Sponsors", "sponsors.html"]
 ];
 
@@ -13,7 +14,8 @@ const sidebarLinks = {
   workshop: [["scope", "Track Scope"], ["motivation", "Motivation"], ["objectives", "Learning Objectives"], ["program", "Program"], ["sustainability", "Sustainability"]],
   papers: [["submission-types", "Submission Types"], ["topics", "Topics of Interest"], ["guidelines", "Guidelines"]],
   dates: [["timeline", "Submission Timeline"], ["conference", "Conference Dates"]],
-  people: [["event-organizers", "Organizing Committee"], ["speakers", "Speakers"], ["webmasters", "Webmasters"]],
+  speakers: [["speaker-roster", "Speakers"]],
+  committee: [["event-organizers", "Organizing Committee"], ["webmasters", "Webmasters"]],
   sponsors: [["sponsor-information", "Sponsor Information"], ["partnership", "Partnership"]]
 };
 
@@ -78,7 +80,7 @@ function buildFooter() {
       <div class="footer-inner">
         <div>
           <strong>ACM Trust 2027</strong>
-          <p><a href="https://eigtrust.acm.org/trust2027/" target="_blank" rel="noopener">Official conference website</a><br>March 7-9, 2027 &bull; Washington, DC</p>
+          <p>March 7-9, 2027 &bull; Washington, DC</p>
         </div>
         <div>
           <strong>REED-AI 2027</strong>
@@ -172,12 +174,12 @@ const dates = [
 ];
 
 const eventOrganizers = [
-  { name: "Ahmad P. Tafti, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp", bio: "Health informatics and trustworthy, explainable AI for clinical applications." },
-  { name: "Yanshan Wang, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp", bio: "Generative AI and natural language processing in healthcare." },
-  { name: "Shyam Visweswaran, MD, PhD", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp", bio: "Clinical decision support and ethically grounded clinical algorithms." },
-  { name: "Armaghan Moemeni, PhD, SFHEA", role: "Event Organizer", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp", bio: "Robust and interpretable machine learning for healthcare.", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
-  { name: "Michael Strange, PhD", role: "Event Organizer", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp", bio: "AI politics, trust, democracy, ethics, and participation.", link: "https://mau.se/en/persons/michael.strange/" },
-  { name: "Prashnna K. Gyawali", role: "Event Organizer", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.webp", bio: "Reliable and trustworthy AI systems for critical domains." }
+  { name: "Ahmad P. Tafti, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp" },
+  { name: "Yanshan Wang, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp" },
+  { name: "Shyam Visweswaran, MD, PhD", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp" },
+  { name: "Armaghan Moemeni, PhD, SFHEA", role: "Event Organizer", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
+  { name: "Michael Strange, PhD", role: "Event Organizer", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp", link: "https://mau.se/en/persons/michael.strange/" },
+  { name: "Prashnna K. Gyawali", role: "Event Organizer", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.webp" }
 ];
 
 const speakers = [
@@ -200,9 +202,8 @@ function renderPerson(person) {
   const visual = person.image
     ? `<img src="${person.image}" alt="Portrait of ${person.name}" width="640" height="800" loading="lazy" decoding="async" fetchpriority="low">`
     : `<span class="initials" aria-label="Photo not available">${person.initials || "?"}</span>`;
-  const bio = person.bio ? `<p class="bio">${person.bio}</p>` : "";
   const link = person.link ? `<a href="${person.link}" target="_blank" rel="noopener">View profile</a>` : "";
-  return `<article class="person-card" tabindex="0"><div class="person-photo">${visual}</div><div class="person-copy"><span class="role">${person.role}</span><h3>${person.name}</h3><span class="affiliation">${person.affiliation}</span>${bio}${link}</div></article>`;
+  return `<article class="person-card" tabindex="0"><div class="person-photo">${visual}</div><div class="person-copy"><span class="role">${person.role}</span><h3>${person.name}</h3><span class="affiliation">${person.affiliation}</span>${link}</div></article>`;
 }
 
 function renderPeople(selector, people) {
@@ -405,7 +406,9 @@ function setupNeuralField() {
       spacing: lowPower ? 21 : 18,
       showDots: true
     });
-    window.addEventListener("pagehide", () => effect?.destroy(), { once: true });
+    window.addEventListener("pagehide", event => {
+      if (!event.persisted) effect?.destroy();
+    });
   } catch (error) {
     field.classList.add("neural-fallback");
   }
@@ -500,7 +503,11 @@ function setupScrollThreads() {
   }, { passive: true });
   document.documentElement.addEventListener("pointerleave", () => { pointer.active = false; });
   window.addEventListener("resize", resize);
-  window.addEventListener("pagehide", () => window.cancelAnimationFrame(frame), { once: true });
+  window.addEventListener("pagehide", event => {
+    if (event.persisted) return;
+    window.cancelAnimationFrame(frame);
+    frame = 0;
+  });
   resize();
   frame = window.requestAnimationFrame(draw);
 }
@@ -564,15 +571,24 @@ function setupMastheadPointer() {
 
 function setupPageTransitions() {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let recoveryTimer = 0;
   const curtain = document.createElement("div");
   curtain.className = "page-curtain";
   curtain.setAttribute("aria-hidden", "true");
   curtain.innerHTML = "<span>REED-AI 2027</span>";
   document.body.append(curtain);
 
+  const resetCurtain = () => {
+    window.clearTimeout(recoveryTimer);
+    document.body.classList.remove("is-leaving");
+    document.body.classList.add("is-ready");
+  };
+
   window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => document.body.classList.add("is-ready"));
+    window.requestAnimationFrame(resetCurtain);
   });
+  window.setTimeout(resetCurtain, 900);
+  window.addEventListener("pageshow", resetCurtain);
 
   if (reduceMotion) return;
   document.addEventListener("click", event => {
@@ -588,6 +604,7 @@ function setupPageTransitions() {
 
     event.preventDefault();
     document.body.classList.add("is-leaving");
+    recoveryTimer = window.setTimeout(resetCurtain, 2400);
     window.setTimeout(() => { window.location.href = url.href; }, 620);
   });
 }
@@ -598,6 +615,7 @@ buildFooter();
 buildPageFlow();
 simplifyLabels();
 buildMastheadDetails();
+setupPageTransitions();
 renderSubmissions();
 renderTopics();
 renderDates();
@@ -613,7 +631,6 @@ setupAnchorNavigation();
 setupRevealMotion();
 setupScrollEffects();
 setupMastheadPointer();
-setupPageTransitions();
 
 const topicFilter = document.querySelector("#topic-filter");
 if (topicFilter) topicFilter.addEventListener("input", () => renderTopics(topicFilter.value));

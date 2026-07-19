@@ -10,18 +10,8 @@ const pages = [
   ["sponsors", "Sponsors", "sponsors.html"]
 ];
 
-const sidebarLinks = {
-  workshop: [["scope", "Track Scope"], ["motivation", "Motivation"], ["objectives", "Learning Objectives"], ["program", "Program"], ["sustainability", "Sustainability"]],
-  papers: [["submission-types", "Submission Types"], ["topics", "Topics of Interest"], ["guidelines", "Guidelines"]],
-  dates: [["timeline", "Submission Timeline"], ["conference", "Conference Dates"]],
-  speakers: [["speaker-roster", "Speakers"]],
-  committee: [["event-organizers", "Organizing Committee"], ["webmasters", "Webmasters"]],
-  sponsors: [["sponsor-information", "Sponsor Information"], ["partnership", "Partnership"]]
-};
-
 const pageKey = document.body.dataset.page || "home";
 const currentPageIndex = Math.max(0, pages.findIndex(([key]) => key === pageKey));
-const currentLabel = pages[currentPageIndex]?.[1] || "Home";
 
 function buildHeader() {
   const nav = pages
@@ -51,27 +41,6 @@ function buildHeader() {
         <nav class="page-nav" aria-label="Conference pages"><ul>${nav}</ul></nav>
       </div>
     </header>`;
-}
-
-function buildSidebar() {
-  const sidebar = document.querySelector("#site-sidebar");
-  const links = sidebarLinks[pageKey] || [];
-  if (!sidebar || links.length === 0) {
-    if (sidebar) sidebar.innerHTML = "";
-    return;
-  }
-
-  const anchors = links
-    .map(([id, label], index) => `<a href="#${id}"${index === 0 ? ' class="active"' : ""}><span class="anchor-index">0${index + 1}</span><span>${label}</span></a>`)
-    .join("");
-
-  sidebar.innerHTML = `
-    <aside class="anchor-sidebar" aria-label="On this page">
-      <div class="sidebar-mark"><strong>${currentLabel}</strong><span>ACM Trust 2027</span></div>
-      <p class="anchor-title">On this page</p>
-      <nav class="anchor-nav">${anchors}</nav>
-      <div class="sidebar-meta">Washington, DC &bull; March 7-9, 2027</div>
-    </aside>`;
 }
 
 function buildFooter() {
@@ -177,20 +146,20 @@ const eventOrganizers = [
   { name: "Ahmad P. Tafti, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp" },
   { name: "Yanshan Wang, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp" },
   { name: "Shyam Visweswaran, MD, PhD", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp" },
-  { name: "Armaghan Moemeni, PhD, SFHEA", role: "Event Organizer", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
-  { name: "Michael Strange, PhD", role: "Event Organizer", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp", link: "https://mau.se/en/persons/michael.strange/" },
+  { name: "Armaghan Moemeni, PhD, SFHEA", role: "Event Organizer", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp" },
+  { name: "Michael Strange, PhD", role: "Event Organizer", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp" },
   { name: "Prashnna K. Gyawali", role: "Event Organizer", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.webp" }
 ];
 
 const speakers = [
-  { name: "Sagnik Dakshit, PhD", role: "Program Committee Member", affiliation: "Kennesaw State University", image: "assets/images/sagnik-dakshit.webp", link: "https://www.sagnikdakshit.com/" },
-  { name: "Ayse Tekes, PhD", role: "Program Committee Member", affiliation: "Kennesaw State University", image: "assets/images/ayse-tekes.webp", link: "https://campus.kennesaw.edu/offices-services/research/about/contact.php" },
+  { name: "Sagnik Dakshit, PhD", role: "Program Committee Member", affiliation: "Kennesaw State University", image: "assets/images/sagnik-dakshit.webp" },
+  { name: "Ayse Tekes, PhD", role: "Program Committee Member", affiliation: "Kennesaw State University", image: "assets/images/ayse-tekes.webp" },
   { name: "Faezeh Rohani, PhD", role: "Program Committee Member", affiliation: "&Uuml;sk&uuml;dar University", image: "assets/images/faezeh-rohani.webp" },
   { name: "Husam Ghazaleh, PhD", role: "Program Committee Member", affiliation: "Benedictine University", image: "assets/images/husam-ghazaleh.webp" },
   { name: "Maedeh Agharazidermani, PhD", role: "Program Committee Member", affiliation: "Florida State University", image: "assets/images/maedeh-agharazi.webp" },
   { name: "Zeyun Yu, PhD", role: "Program Committee Member", affiliation: "University of Wisconsin-Milwaukee", image: "assets/images/zeyun-yu.webp" },
-  { name: "Yiye Zhang, PhD", role: "Potential Invited Speaker", affiliation: "Weill Cornell Medicine", image: "assets/images/yiye-zhang.webp", link: "https://www.yiyezhang.com/" },
-  { name: "Rema Padman, PhD", role: "Potential Invited Speaker", affiliation: "Carnegie Mellon University", image: "assets/images/rema-padman.webp", link: "https://www.heinz.cmu.edu/faculty-research/profiles/padman-rema" }
+  { name: "Yiye Zhang, PhD", role: "Guest Speaker", affiliation: "Weill Cornell Medicine", image: "assets/images/yiye-zhang.webp" },
+  { name: "Rema Padman, PhD", role: "Guest Speaker", affiliation: "Carnegie Mellon University", image: "assets/images/rema-padman.webp" }
 ];
 
 const webmasters = [
@@ -202,8 +171,7 @@ function renderPerson(person) {
   const visual = person.image
     ? `<img src="${person.image}" alt="Portrait of ${person.name}" width="640" height="800" loading="lazy" decoding="async" fetchpriority="low">`
     : `<span class="initials" aria-label="Photo not available">${person.initials || "?"}</span>`;
-  const link = person.link ? `<a href="${person.link}" target="_blank" rel="noopener">View profile</a>` : "";
-  return `<article class="person-card" tabindex="0"><div class="person-photo">${visual}</div><div class="person-copy"><span class="role">${person.role}</span><h3>${person.name}</h3><span class="affiliation">${person.affiliation}</span>${link}</div></article>`;
+  return `<article class="person-card" tabindex="0"><div class="person-photo">${visual}</div><div class="person-copy"><span class="role">${person.role}</span><h3>${person.name}</h3><span class="affiliation">${person.affiliation}</span></div></article>`;
 }
 
 function renderPeople(selector, people) {
@@ -610,7 +578,6 @@ function setupPageTransitions() {
 }
 
 buildHeader();
-buildSidebar();
 buildFooter();
 buildPageFlow();
 simplifyLabels();

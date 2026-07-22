@@ -143,35 +143,36 @@ const dates = [
 ];
 
 const eventOrganizers = [
-  { name: "Ahmad P. Tafti, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp" },
-  { name: "Yanshan Wang, PhD, FAMIA", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp" },
-  { name: "Shyam Visweswaran, MD, PhD", role: "Event Organizer", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp" },
-  { name: "Armaghan Moemeni, PhD, SFHEA", role: "Event Organizer", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp" },
-  { name: "Michael Strange, PhD", role: "Event Organizer", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp" },
-  { name: "Prashnna K. Gyawali", role: "Event Organizer", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.webp" }
+  { name: "Ahmad P. Tafti, PhD, FAMIA", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp", link: "https://pitthexai.github.io/ahmad-pahlavan-tafti.html" },
+  { name: "Yanshan Wang, PhD, FAMIA", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp", link: "https://www.sci.pitt.edu/people/yanshan-wang" },
+  { name: "Shyam Visweswaran, MD, PhD", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp", link: "https://www.sci.pitt.edu/people/shyam-visweswaran" },
+  { name: "Armaghan Moemeni, PhD, SFHEA", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
+  { name: "Michael Strange, PhD", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp", link: "https://mau.se/en/persons/michael.strange/" },
+  { name: "Prashnna K. Gyawali", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.webp", link: "https://directory.statler.wvu.edu/faculty-staff-directory/prashnna-gyawali" }
 ];
 
-const speakers = [
-  { name: "Sagnik Dakshit, PhD", role: "Program Committee Member", affiliation: "Kennesaw State University", image: "assets/images/sagnik-dakshit.webp" },
-  { name: "Ayse Tekes, PhD", role: "Program Committee Member", affiliation: "Kennesaw State University", image: "assets/images/ayse-tekes.webp" },
-  { name: "Faezeh Rohani, PhD", role: "Program Committee Member", affiliation: "&Uuml;sk&uuml;dar University", image: "assets/images/faezeh-rohani.webp" },
-  { name: "Husam Ghazaleh, PhD", role: "Program Committee Member", affiliation: "Benedictine University", image: "assets/images/husam-ghazaleh.webp" },
-  { name: "Maedeh Agharazidermani, PhD", role: "Program Committee Member", affiliation: "Florida State University", image: "assets/images/maedeh-agharazi.webp" },
-  { name: "Zeyun Yu, PhD", role: "Program Committee Member", affiliation: "University of Wisconsin-Milwaukee", image: "assets/images/zeyun-yu.webp" },
-  { name: "Yiye Zhang, PhD", role: "Guest Speaker", affiliation: "Weill Cornell Medicine", image: "assets/images/yiye-zhang.webp" },
-  { name: "Rema Padman, PhD", role: "Guest Speaker", affiliation: "Carnegie Mellon University", image: "assets/images/rema-padman.webp" }
+const programCommittee = [
+  { name: "Sagnik Dakshit, PhD", affiliation: "Kennesaw State University", image: "assets/images/sagnik-dakshit.webp", link: "https://www.sagnikdakshit.com/" },
+  { name: "Ayse Tekes, PhD", affiliation: "Kennesaw State University", image: "assets/images/ayse-tekes.webp", link: "https://facultyweb.kennesaw.edu/atekes/index.php" },
+  { name: "Faezeh Rohani, PhD", affiliation: "&Uuml;sk&uuml;dar University", image: "assets/images/faezeh-rohani.webp", link: "https://uskudar.edu.tr/en/academic-staff/faezeh-rohani" },
+  { name: "Husam Ghazaleh, PhD", affiliation: "Benedictine University", image: "assets/images/husam-ghazaleh.webp", link: "https://ben.edu/faculty/husam-ghazaleh/" },
+  { name: "Maedeh Agharazidermani, PhD", affiliation: "Florida State University", image: "assets/images/maedeh-agharazi.webp", link: "https://directory.cci.fsu.edu/maedeh-agharazi/" },
+  { name: "Zeyun Yu, PhD", affiliation: "University of Wisconsin-Milwaukee", image: "assets/images/zeyun-yu.webp", link: "https://uwm.edu/engineering/directory/yu-zeyun/" }
 ];
 
 const webmasters = [
-  { name: "Farnaz Rezvani, MS", role: "Webmaster", affiliation: "IEEE Member", image: "assets/images/farnaz-rezvani.webp" },
-  { name: "Lyudong Yan", role: "Webmaster", affiliation: "Website Team", image: "assets/images/lyudong-yan.webp" }
+  { name: "Farnaz Rezvani, MS", affiliation: "IEEE Member", image: "assets/images/farnaz-rezvani.webp", link: "https://www.linkedin.com/in/farnaz-rezvani" },
+  { name: "Lyudong Yan", affiliation: "Website Team", image: "assets/images/lyudong-yan.webp", link: "https://github.com/lyudongyan" }
 ];
 
 function renderPerson(person) {
   const visual = person.image
     ? `<img src="${person.image}" alt="Portrait of ${person.name}" width="640" height="800" loading="lazy" decoding="async" fetchpriority="low">`
     : `<span class="initials" aria-label="Photo not available">${person.initials || "?"}</span>`;
-  return `<article class="person-card" tabindex="0"><div class="person-photo">${visual}</div><div class="person-copy"><span class="role">${person.role}</span><h3>${person.name}</h3><span class="affiliation">${person.affiliation}</span></div></article>`;
+  const name = person.link
+    ? `<a href="${person.link}" target="_blank" rel="noopener">${person.name}</a>`
+    : person.name;
+  return `<article class="person-card"><div class="person-photo">${visual}</div><div class="person-copy"><h3>${name}</h3><span class="affiliation">${person.affiliation}</span></div></article>`;
 }
 
 function renderPeople(selector, people) {
@@ -587,7 +588,7 @@ renderSubmissions();
 renderTopics();
 renderDates();
 renderPeople("#event-organizer-grid", eventOrganizers);
-renderPeople("#speaker-grid", speakers);
+renderPeople("#program-committee-grid", programCommittee);
 renderPeople("#webmaster-grid", webmasters);
 setupLiquidGlass();
 setupNeuralField();

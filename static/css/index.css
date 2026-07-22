@@ -2553,3 +2553,202 @@ body {
   .people-grid .person-photo,
   .people-grid .person-card::after { height: 310px; }
 }
+
+/* Circular profile system shared with the Pitt HexAI family of sites */
+.people-grid,
+.organizer-grid,
+.program-committee-grid,
+.webmaster-grid {
+  width: 100%;
+  max-width: 934px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 48px 32px;
+  margin: 48px auto 0;
+}
+
+.people-grid .person-card {
+  flex: 0 0 290px;
+  width: 290px;
+  max-width: 290px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  border-radius: 0;
+}
+
+.people-grid .person-card::after {
+  display: none;
+}
+
+.people-grid .person-photo,
+.six-person-grid .person-photo {
+  flex: 0 0 176px;
+  width: 176px;
+  height: 176px;
+  margin: 0 auto 22px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  border: 4px solid rgba(255,255,255,.72);
+  border-radius: 50%;
+  background: var(--paper-deep);
+  box-shadow:
+    0 18px 42px rgba(3,25,49,.18),
+    inset 0 0 0 1px rgba(0,53,148,.08);
+  transition: transform .42s var(--ease), box-shadow .42s var(--ease);
+}
+
+.people-grid .person-photo img {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  object-fit: cover;
+  object-position: center 18%;
+  filter: none;
+  transform: scale(1);
+  transition: transform .55s var(--ease), filter .35s ease;
+}
+
+.people-grid .person-copy,
+.six-person-grid .person-copy {
+  width: 100%;
+  height: 154px;
+  min-height: 154px;
+  max-height: 154px;
+  margin: 0;
+  padding: 22px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--navy);
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.46);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at var(--glass-x, 20%) var(--glass-y, 12%), rgba(139,196,255,.12), transparent 44%),
+    rgba(229,241,255,.30);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.74),
+    inset -1px -1px 0 rgba(0,53,148,.055),
+    0 16px 38px rgba(3,25,49,.10);
+  backdrop-filter: blur(18px) saturate(134%);
+  -webkit-backdrop-filter: blur(18px) saturate(134%);
+  transition: transform .35s var(--ease), box-shadow .35s ease, background .35s ease;
+}
+
+.people-grid .person-copy .role,
+.six-person-grid .person-copy .role {
+  display: none;
+}
+
+.people-grid .person-copy h3,
+.six-person-grid .person-copy h3 {
+  width: 100%;
+  min-height: 52px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  font-size: 20px;
+  line-height: 1.16;
+}
+
+.people-grid .person-copy h3 a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .25s ease;
+}
+
+.people-grid .person-copy h3 a:hover {
+  color: var(--blue);
+}
+
+.people-grid .person-copy h3 a:focus-visible {
+  outline: 2px solid var(--blue-bright);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.people-grid .person-copy .affiliation,
+.six-person-grid .person-copy .affiliation {
+  width: 100%;
+  min-height: 22px;
+  margin-top: auto;
+  overflow: visible;
+  color: #174f83;
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.people-grid .person-card:hover .person-photo,
+.people-grid .person-card:focus-within .person-photo {
+  transform: translateY(-5px);
+  box-shadow:
+    0 24px 54px rgba(3,25,49,.24),
+    0 0 0 7px rgba(168,216,255,.18);
+}
+
+.people-grid .person-card:hover .person-photo img,
+.people-grid .person-card:focus-within .person-photo img {
+  transform: scale(1.075);
+  filter: saturate(1.04) contrast(1.02);
+}
+
+.people-grid .person-card:hover .person-copy,
+.people-grid .person-card:focus-visible .person-copy,
+.people-grid .person-card:focus-within .person-copy {
+  transform: none;
+  color: var(--navy);
+  border-color: rgba(255,255,255,.52);
+  background:
+    radial-gradient(circle at var(--glass-x, 20%) var(--glass-y, 12%), rgba(139,196,255,.16), transparent 44%),
+    rgba(229,241,255,.34);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.78),
+    inset -1px -1px 0 rgba(0,53,148,.055),
+    0 18px 42px rgba(3,25,49,.12);
+}
+
+.people-grid .person-card:hover .person-copy h3,
+.people-grid .person-card:focus-visible .person-copy h3,
+.people-grid .person-card:focus-within .person-copy h3 {
+  color: var(--navy);
+}
+
+.people-grid .person-card:hover .person-copy .affiliation,
+.people-grid .person-card:focus-visible .person-copy .affiliation,
+.people-grid .person-card:focus-within .person-copy .affiliation {
+  color: #174f83;
+}
+
+@media (max-width: 1000px) {
+  .people-grid,
+  .organizer-grid,
+  .program-committee-grid,
+  .webmaster-grid {
+    max-width: 612px;
+  }
+}
+
+@media (max-width: 660px) {
+  .people-grid,
+  .organizer-grid,
+  .program-committee-grid,
+  .webmaster-grid {
+    max-width: 320px;
+  }
+
+  .people-grid .person-card {
+    flex: 0 1 320px;
+    width: min(100%, 320px);
+    max-width: 320px;
+  }
+}

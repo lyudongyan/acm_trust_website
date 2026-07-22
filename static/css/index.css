@@ -2752,3 +2752,252 @@ body {
     max-width: 320px;
   }
 }
+
+/* Conference identity, committee navigation, and content refinements */
+:root { --header-h: 126px; }
+
+.utility-bar {
+  justify-content: flex-end;
+  font-size: 12px;
+  letter-spacing: .035em;
+  text-transform: none;
+}
+
+.utility-links { margin-left: auto; }
+
+.conference-brand {
+  min-width: 217px;
+  border-radius: 8px;
+}
+
+.conference-brand img {
+  width: auto;
+  height: 68px;
+  border-radius: 6px;
+  object-fit: contain;
+  transition: transform .35s var(--ease), filter .35s ease;
+}
+
+.conference-brand:hover img { transform: translateY(-2px) scale(1.015); }
+.conference-brand:focus-visible { outline: 3px solid var(--blue-bright); outline-offset: 4px; }
+
+.page-nav > ul { display: flex; align-items: center; gap: clamp(12px, 1.35vw, 24px); }
+.nav-item { position: relative; }
+.nav-parent-row { display: flex; align-items: center; gap: 3px; }
+
+.dropdown-toggle {
+  width: 28px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  color: var(--blue);
+  background: transparent;
+  cursor: pointer;
+}
+
+.dropdown-toggle span {
+  display: block;
+  font-size: 15px;
+  line-height: 1;
+  transition: transform .3s var(--ease);
+}
+
+.has-dropdown.is-open .dropdown-toggle span { transform: rotate(180deg); }
+
+.page-nav .nav-dropdown {
+  position: absolute;
+  z-index: 260;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 250px;
+  display: grid;
+  gap: 0;
+  padding: 9px;
+  list-style: none;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 18px;
+  background: rgba(238,247,255,.88);
+  box-shadow: 0 24px 60px -28px rgba(0,31,63,.65);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity .25s ease, transform .32s var(--ease), visibility .25s;
+}
+
+.page-nav .nav-dropdown a {
+  padding: 11px 13px;
+  border-radius: 10px;
+  font-size: 15px;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+.page-nav .nav-dropdown a::after { display: none; }
+.page-nav .nav-dropdown a:hover,
+.page-nav .nav-dropdown a:focus-visible { color: var(--navy); background: rgba(168,216,255,.42); }
+
+.has-dropdown.is-open > .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (hover: hover) and (min-width: 1181px) {
+  .has-dropdown:hover > .nav-dropdown,
+  .has-dropdown:focus-within > .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+  }
+}
+
+.single-line-title,
+.single-line-heading { white-space: nowrap; }
+
+.page-masthead h1.single-line-title {
+  font-size: clamp(2.9rem, 5.1vw, 5.1rem);
+  line-height: 1.05;
+}
+
+.organizing-intro {
+  max-width: 780px;
+  font-size: clamp(1.05rem, 1.45vw, 1.25rem);
+}
+
+.focus-list { border-top: 1px solid var(--line); }
+
+.focus-item {
+  counter-increment: focus;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 28px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  outline: none;
+  transition: padding .38s var(--ease), background .3s ease;
+}
+
+.focus-item::before {
+  content: "0" counter(focus);
+  color: #8a5b00;
+  font-family: var(--font-display);
+  font-size: 16px;
+}
+
+.focus-item::after {
+  content: "+";
+  color: var(--blue);
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+  transition: transform .35s var(--ease);
+}
+
+.focus-item h3 {
+  color: var(--navy);
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+}
+
+.focus-description {
+  grid-column: 2 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .45s var(--ease), opacity .3s ease, margin-top .4s var(--ease);
+}
+
+.focus-description p {
+  min-height: 0;
+  overflow: hidden;
+  max-width: 64ch;
+  color: #2f4f72;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.focus-item:hover,
+.focus-item:focus,
+.focus-item:focus-within {
+  padding-left: 10px;
+  background: rgba(255,255,255,.22);
+}
+
+.focus-item:hover::after,
+.focus-item:focus::after,
+.focus-item:focus-within::after { transform: rotate(45deg); }
+
+.focus-item:hover .focus-description,
+.focus-item:focus .focus-description,
+.focus-item:focus-within .focus-description {
+  grid-template-rows: 1fr;
+  margin-top: 10px;
+  opacity: 1;
+}
+
+.focus-item:focus-visible { box-shadow: inset 3px 0 0 var(--blue-bright); }
+
+.submission-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+@media (max-width: 1180px) {
+  :root { --header-h: 112px; }
+  .conference-brand { min-width: 185px; }
+  .conference-brand img { height: 58px; }
+  .page-nav { max-height: calc(100vh - 72px); overflow-y: auto; }
+  .page-nav > ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 30px; }
+  .nav-parent-row > a { flex: 1; }
+  .dropdown-toggle { width: 46px; height: 48px; border-bottom: 1px solid var(--line); }
+  .page-nav .nav-dropdown {
+    position: static;
+    width: 100%;
+    max-height: 0;
+    padding: 0 12px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0 0 14px 14px;
+    background: rgba(231,243,255,.72);
+    box-shadow: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: none;
+  }
+  .page-nav .nav-dropdown a { padding: 10px 12px; border-bottom: 0; font-size: 15px; }
+  .has-dropdown.is-open > .nav-dropdown {
+    max-height: 180px;
+    padding: 7px 12px 10px;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (hover: none), (max-width: 760px) {
+  .focus-description { grid-template-rows: 1fr; margin-top: 9px; opacity: 1; }
+  .focus-item::after { display: none; }
+}
+
+@media (max-width: 640px) {
+  :root { --header-h: 104px; }
+  .conference-brand { min-width: 153px; }
+  .conference-brand img { height: 48px; }
+  .page-nav > ul { grid-template-columns: 1fr; }
+  .page-masthead h1.single-line-title { font-size: clamp(1.8rem, 7.8vw, 3rem); }
+  .single-line-heading { white-space: normal; }
+  .focus-item { grid-template-columns: 34px minmax(0, 1fr); padding-block: 20px; }
+  .focus-description { grid-column: 2; }
+  .focus-description p { font-size: 15.5px; }
+  .submission-actions { display: grid; grid-template-columns: 1fr; }
+}

@@ -2,7 +2,7 @@ document.documentElement.classList.add("js");
 
 const pages = [
   ["home", "Home", "index.html"],
-  ["workshop", "Workshop Description", "workshop-description.html"],
+  ["track", "Track Description", "track-description.html"],
   ["papers", "Call for Papers", "call-for-papers.html"],
   ["dates", "Important Dates", "important-dates.html"],
   ["speakers", "Speakers", "speakers.html"],
@@ -15,25 +15,35 @@ const currentPageIndex = Math.max(0, pages.findIndex(([key]) => key === pageKey)
 
 function buildHeader() {
   const nav = pages
-    .map(([key, label, href]) => `<li><a href="${href}"${key === pageKey ? ' class="active" aria-current="page"' : ""}>${label}</a></li>`)
+    .map(([key, label, href]) => {
+      const active = key === pageKey ? ' class="active" aria-current="page"' : "";
+      if (key !== "committee") return `<li><a href="${href}"${active}>${label}</a></li>`;
+      return `
+        <li class="nav-item has-dropdown">
+          <div class="nav-parent-row">
+            <a href="${href}"${active}>${label}</a>
+            <button class="dropdown-toggle" type="button" aria-label="Show Organizing Committee sections" aria-expanded="false" aria-controls="committee-dropdown"><span aria-hidden="true">&#9662;</span></button>
+          </div>
+          <ul class="nav-dropdown" id="committee-dropdown">
+            <li><a href="organizing-committee.html#organizing-committee">Organizing Committee</a></li>
+            <li><a href="organizing-committee.html#program-committee">Program Committee</a></li>
+            <li><a href="organizing-committee.html#webmaster">Webmaster</a></li>
+          </ul>
+        </li>`;
+    })
     .join("");
 
   document.querySelector("#site-header").innerHTML = `
     <header class="site-header">
       <div class="site-progress" aria-hidden="true"><div class="site-progress-bar"></div></div>
       <div class="utility-bar">
-        <strong>ACM Conference on Trustworthy and Responsible AI and Computing Systems</strong>
         <div class="utility-links">
           <span>March 7-9, 2027 &bull; Washington, DC</span>
-          <a href="https://eigtrust.acm.org/trust2027/" target="_blank" rel="noopener">Official conference site</a>
         </div>
       </div>
       <div class="conference-header" rt-liquid-glass rt-liquid-glass-blur="11" rt-liquid-glass-scale="30" rt-liquid-glass-map="512" rt-liquid-glass-tint="rgba(255,255,255,.24)">
-        <a class="conference-brand" href="index.html" aria-label="ACM Trust 2027 home">
-          <span class="brand-copy">
-            <strong>ACM Trust 2027</strong>
-            <span>REED-AI Emerging Area Track</span>
-          </span>
+        <a class="conference-brand" href="https://eigtrust.acm.org/trust2027/" target="_blank" rel="noopener" aria-label="Visit the official ACM TRUST 2027 conference website">
+          <img src="acm_logo_tablet.svg" width="255" height="80" alt="ACM TRUST 2027 conference logo and title">
         </a>
         <button class="menu-toggle" type="button" aria-label="Toggle page menu" aria-expanded="false">
           <span></span><span></span>
@@ -48,7 +58,7 @@ function buildFooter() {
     <footer class="site-footer">
       <div class="footer-inner">
         <div>
-          <strong>ACM Trust 2027</strong>
+          <strong>ACM TRUST 2027</strong>
           <p>March 7-9, 2027 &bull; Washington, DC</p>
         </div>
         <div>
@@ -127,23 +137,16 @@ const topics = [
   "Real-World Deployment, Implementation Science, and Clinical Translation"
 ];
 
-const submissionTypes = [
-  ["Regular Papers", "8-10 pages + references", "Mature research with substantial methodological innovation, empirical evaluation, theoretical foundations, or deployment experience."],
-  ["Short Papers", "4-6 pages + references", "Novel concepts, preliminary findings, pilot studies, emerging methods, and early-stage research directions."],
-  ["Position Papers", "4 pages + references", "Perspectives, policy recommendations, ethical considerations, governance frameworks, and future visions."],
-  ["Poster Papers", "1-2 pages + references", "Work in progress, late-breaking results, student projects, demonstrations, and discussion-oriented ideas."]
-];
-
 const dates = [
-  ["October 24, 2026", "Abstract Registration", "Main conference abstract registration deadline."],
+  ["October 24, 2026", "Abstract Registration", "REED-AI abstract registration deadline."],
   ["October 31, 2026", "Paper Submission Deadline", "Deadline for REED-AI paper submissions."],
   ["December 31, 2026", "Acceptance Notification", "Authors receive the track decision."],
   ["February 28, 2027", "Camera-Ready Deadline", "Final accepted manuscripts are due."],
-  ["March 7-9, 2027", "ACM Trust 2027", "Conference in Washington, DC."]
+  ["March 7-9, 2027", "ACM TRUST 2027", "Conference in Washington, DC."]
 ];
 
 const eventOrganizers = [
-  { name: "Ahmad P. Tafti, PhD, FAMIA", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp", link: "https://pitthexai.github.io/ahmad-pahlavan-tafti.html" },
+  { name: "Ahmad P. Tafti, PhD, FAMIA", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp", link: "https://pitthexai.github.io/index.html" },
   { name: "Yanshan Wang, PhD, FAMIA", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp", link: "https://www.sci.pitt.edu/people/yanshan-wang" },
   { name: "Shyam Visweswaran, MD, PhD", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp", link: "https://www.sci.pitt.edu/people/shyam-visweswaran" },
   { name: "Armaghan Moemeni, PhD, SFHEA", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
@@ -178,14 +181,6 @@ function renderPerson(person) {
 function renderPeople(selector, people) {
   const target = document.querySelector(selector);
   if (target) target.innerHTML = people.map(renderPerson).join("");
-}
-
-function renderSubmissions() {
-  const target = document.querySelector("#submission-grid");
-  if (!target) return;
-  target.innerHTML = submissionTypes
-    .map(([title, length, description]) => `<article class="info-card"><span class="tag">${length}</span><h3>${title}</h3><p>${description}</p></article>`)
-    .join("");
 }
 
 function renderTopics(filter = "") {
@@ -235,6 +230,30 @@ function setupMenu() {
   });
 }
 
+function setupDropdownNavigation() {
+  const dropdown = document.querySelector(".has-dropdown");
+  const toggle = dropdown?.querySelector(".dropdown-toggle");
+  if (!dropdown || !toggle) return;
+
+  const close = () => {
+    dropdown.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
+
+  toggle.addEventListener("click", event => {
+    event.stopPropagation();
+    const open = dropdown.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+  dropdown.querySelectorAll(".nav-dropdown a").forEach(link => link.addEventListener("click", close));
+  document.addEventListener("click", event => {
+    if (!dropdown.contains(event.target)) close();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") close();
+  });
+}
+
 function setupAnchorNavigation() {
   const anchorLinks = [...document.querySelectorAll(".anchor-nav a")];
   const observedSections = anchorLinks
@@ -266,7 +285,7 @@ function setupRevealMotion() {
     ".topic-chip",
     ".timeline-item",
     ".person-card",
-    ".focus-list span",
+    ".focus-item",
     ".side-card",
     ".sponsor-placeholder",
     ".date-table-wrap",
@@ -584,7 +603,6 @@ buildPageFlow();
 simplifyLabels();
 buildMastheadDetails();
 setupPageTransitions();
-renderSubmissions();
 renderTopics();
 renderDates();
 renderPeople("#event-organizer-grid", eventOrganizers);
@@ -595,6 +613,7 @@ setupNeuralField();
 setupSectionTraces();
 setupScrollThreads();
 setupMenu();
+setupDropdownNavigation();
 setupAnchorNavigation();
 setupRevealMotion();
 setupScrollEffects();

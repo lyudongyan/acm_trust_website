@@ -2808,8 +2808,9 @@ body {
 .page-nav .nav-dropdown {
   position: absolute;
   z-index: 260;
-  top: calc(100% + 10px);
-  right: 0;
+  top: calc(100% - 1px);
+  left: 0;
+  right: auto;
   width: 250px;
   display: grid;
   gap: 0;
@@ -2826,6 +2827,11 @@ body {
   transform: translateY(-8px);
   pointer-events: none;
   transition: opacity .25s ease, transform .32s var(--ease), visibility .25s;
+}
+
+.nav-item[data-nav-key="committee"] .nav-dropdown {
+  left: auto;
+  right: 0;
 }
 
 .page-nav .nav-dropdown a {
@@ -2860,8 +2866,19 @@ body {
 .single-line-heading { white-space: nowrap; }
 
 .page-masthead h1.single-line-title {
+  width: max-content;
+  max-width: 100%;
   font-size: clamp(2.9rem, 5.1vw, 5.1rem);
   line-height: 1.05;
+}
+
+body[data-page="committee"] .page-masthead h1.single-line-title {
+  font-size: clamp(2.65rem, 4.6vw, 4.75rem);
+}
+
+.content-section[id],
+.page-masthead[id] {
+  scroll-margin-top: calc(var(--header-h) + 20px);
 }
 
 .organizing-intro {
@@ -2976,7 +2993,7 @@ body {
   }
   .page-nav .nav-dropdown a { padding: 10px 12px; border-bottom: 0; font-size: 15px; }
   .has-dropdown.is-open > .nav-dropdown {
-    max-height: 180px;
+    max-height: 360px;
     padding: 7px 12px 10px;
     opacity: 1;
     visibility: visible;
@@ -2993,7 +3010,7 @@ body {
   .conference-brand { min-width: 153px; }
   .conference-brand img { height: 48px; }
   .page-nav > ul { grid-template-columns: 1fr; }
-  .page-masthead h1.single-line-title { font-size: clamp(1.8rem, 7.8vw, 3rem); }
+  .page-masthead h1.single-line-title { font-size: clamp(1.65rem, 7.2vw, 2.7rem); }
   .single-line-heading { white-space: normal; }
   .focus-item { grid-template-columns: 34px minmax(0, 1fr); padding-block: 20px; }
   .focus-description { grid-column: 2; }

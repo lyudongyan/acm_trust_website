@@ -10,6 +10,36 @@ const pages = [
   ["sponsors", "Sponsors", "sponsors.html"]
 ];
 
+const pageSections = {
+  home: [
+    ["Home", "index.html#home"],
+    ["About REED-AI", "index.html#about"],
+    ["Conference Focus", "index.html#conference-focus"],
+    ["Key Dates", "index.html#key-dates"]
+  ],
+  track: [
+    ["Track Scope", "track-description.html#scope"],
+    ["Motivation", "track-description.html#motivation"],
+    ["Learning Objectives", "track-description.html#objectives"],
+    ["Program at a Glance", "track-description.html#program"],
+    ["Sustainability", "track-description.html#sustainability"]
+  ],
+  papers: [
+    ["Topics of Interest", "call-for-papers.html#topics"],
+    ["Paper Submission and Publication", "call-for-papers.html#guidelines"],
+    ["Call for Papers", "call-for-papers.html#poster"]
+  ],
+  dates: [
+    ["Submission Timeline", "important-dates.html#timeline"],
+    ["Conference Dates", "important-dates.html#conference"]
+  ],
+  committee: [
+    ["Organizing Committee", "organizing-committee.html#organizing-committee"],
+    ["Program Committee", "organizing-committee.html#program-committee"],
+    ["Webmaster", "organizing-committee.html#webmaster"]
+  ]
+};
+
 const pageKey = document.body.dataset.page || "home";
 const currentPageIndex = Math.max(0, pages.findIndex(([key]) => key === pageKey));
 
@@ -17,18 +47,19 @@ function buildHeader() {
   const nav = pages
     .map(([key, label, href]) => {
       const active = key === pageKey ? ' class="active" aria-current="page"' : "";
-      if (key !== "committee") return `<li><a href="${href}"${active}>${label}</a></li>`;
+      const sections = pageSections[key];
+      if (!sections) return `<li><a href="${href}"${active}>${label}</a></li>`;
+      const dropdownId = `${key}-dropdown`;
+      const sectionLinks = sections
+        .map(([sectionLabel, sectionHref]) => `<li><a href="${sectionHref}">${sectionLabel}</a></li>`)
+        .join("");
       return `
-        <li class="nav-item has-dropdown">
+        <li class="nav-item has-dropdown" data-nav-key="${key}">
           <div class="nav-parent-row">
             <a href="${href}"${active}>${label}</a>
-            <button class="dropdown-toggle" type="button" aria-label="Show Organizing Committee sections" aria-expanded="false" aria-controls="committee-dropdown"><span aria-hidden="true">&#9662;</span></button>
+            <button class="dropdown-toggle" type="button" aria-label="Show ${label} sections" aria-expanded="false" aria-controls="${dropdownId}"><span aria-hidden="true">&#9662;</span></button>
           </div>
-          <ul class="nav-dropdown" id="committee-dropdown">
-            <li><a href="organizing-committee.html#organizing-committee">Organizing Committee</a></li>
-            <li><a href="organizing-committee.html#program-committee">Program Committee</a></li>
-            <li><a href="organizing-committee.html#webmaster">Webmaster</a></li>
-          </ul>
+          <ul class="nav-dropdown" id="${dropdownId}">${sectionLinks}</ul>
         </li>`;
     })
     .join("");
@@ -156,17 +187,17 @@ const eventOrganizers = [
   { name: "Yanshan Wang, PhD, FAMIA", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp", link: "https://www.sci.pitt.edu/people/yanshan-wang" },
   { name: "Shyam Visweswaran, MD, PhD", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp", link: "https://www.sci.pitt.edu/people/shyam-visweswaran" },
   { name: "Armaghan Moemeni, PhD, SFHEA", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.png", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
-  { name: "Michael Strange, PhD", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp", link: "https://mau.se/en/persons/michael.strange/" },
-  { name: "Prashnna K. Gyawali", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.jpg", link: "https://directory.statler.wvu.edu/faculty-staff-directory/prashnna-gyawali" }
+  { name: "Prashnna K. Gyawali", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.jpg", link: "https://directory.statler.wvu.edu/faculty-staff-directory/prashnna-gyawali" },
+  { name: "Michael Strange, PhD", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp", link: "https://mau.se/en/persons/michael.strange/" }
 ];
 
 const programCommittee = [
-  { name: "Sagnik Dakshit, PhD", affiliation: "Kennesaw State University", image: "assets/images/sagnik-dakshit.webp", link: "https://www.sagnikdakshit.com/" },
+  { name: "Zeyun Yu, PhD", affiliation: "University of Wisconsin-Milwaukee", image: "assets/images/zeyun-yu.webp", link: "https://uwm.edu/engineering/directory/yu-zeyun/" },
   { name: "Ayse Tekes, PhD", affiliation: "Kennesaw State University", image: "assets/images/ayse-tekes.webp", link: "https://facultyweb.kennesaw.edu/atekes/index.php" },
+  { name: "Sagnik Dakshit, PhD", affiliation: "Kennesaw State University", image: "assets/images/sagnik-dakshit.webp", link: "https://www.sagnikdakshit.com/" },
   { name: "Faezeh Rohani, PhD", affiliation: "&Uuml;sk&uuml;dar University", image: "assets/images/faezeh-rohani.webp", link: "https://uskudar.edu.tr/en/academic-staff/faezeh-rohani" },
   { name: "Husam Ghazaleh, PhD", affiliation: "Benedictine University", image: "assets/images/husam-ghazaleh.webp", link: "https://ben.edu/faculty/husam-ghazaleh/" },
-  { name: "Maedeh Agharazidermani, PhD", affiliation: "Florida State University", image: "assets/images/maedeh-agharazi.webp", link: "https://directory.cci.fsu.edu/maedeh-agharazi/" },
-  { name: "Zeyun Yu, PhD", affiliation: "University of Wisconsin-Milwaukee", image: "assets/images/zeyun-yu.webp", link: "https://uwm.edu/engineering/directory/yu-zeyun/" }
+  { name: "Maedeh Agharazidermani, PhD", affiliation: "Florida State University", image: "assets/images/maedeh-agharazi.webp", link: "https://directory.cci.fsu.edu/maedeh-agharazi/" }
 ];
 
 const webmasters = [
@@ -237,29 +268,53 @@ function setupMenu() {
 }
 
 function setupDropdownNavigation() {
-  const dropdown = document.querySelector(".has-dropdown");
-  const toggle = dropdown?.querySelector(".dropdown-toggle");
-  if (!dropdown || !toggle) return;
+  const dropdowns = [...document.querySelectorAll(".has-dropdown")];
+  if (!dropdowns.length) return;
 
-  const close = () => {
+  const close = dropdown => {
     dropdown.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
+    dropdown.querySelector(".dropdown-toggle")?.setAttribute("aria-expanded", "false");
   };
+  const closeAll = exception => dropdowns.forEach(dropdown => {
+    if (dropdown !== exception) close(dropdown);
+  });
 
-  toggle.addEventListener("click", event => {
-    event.stopPropagation();
-    const open = dropdown.classList.toggle("is-open");
-    toggle.setAttribute("aria-expanded", String(open));
+  dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector(".dropdown-toggle");
+    if (!toggle) return;
+    let closeTimer;
+    const cancelClose = () => window.clearTimeout(closeTimer);
+    const scheduleClose = () => {
+      cancelClose();
+      closeTimer = window.setTimeout(() => close(dropdown), 180);
+    };
+
+    toggle.addEventListener("click", event => {
+      event.stopPropagation();
+      cancelClose();
+      const willOpen = !dropdown.classList.contains("is-open");
+      closeAll(dropdown);
+      dropdown.classList.toggle("is-open", willOpen);
+      toggle.setAttribute("aria-expanded", String(willOpen));
+    });
+    dropdown.addEventListener("pointerenter", cancelClose);
+    dropdown.addEventListener("pointerleave", event => {
+      if (event.pointerType === "mouse") scheduleClose();
+    });
+    dropdown.addEventListener("focusin", cancelClose);
+    dropdown.addEventListener("focusout", event => {
+      if (!dropdown.contains(event.relatedTarget)) scheduleClose();
+    });
+    dropdown.querySelectorAll(".nav-dropdown a").forEach(link => {
+      link.addEventListener("click", () => close(dropdown));
+    });
   });
-  dropdown.addEventListener("pointerleave", event => {
-    if (event.pointerType === "mouse") close();
-  });
-  dropdown.querySelectorAll(".nav-dropdown a").forEach(link => link.addEventListener("click", close));
+
   document.addEventListener("click", event => {
-    if (!dropdown.contains(event.target)) close();
+    if (!(event.target instanceof Element) || !event.target.closest(".has-dropdown")) closeAll();
   });
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape") close();
+    if (event.key === "Escape") closeAll();
   });
 }
 
@@ -275,7 +330,7 @@ function setupPosterDownload() {
 
     const download = document.createElement("a");
     download.href = link.href;
-    download.download = link.getAttribute("download") || "REED-AI-Call-for-Papers-Poster.png";
+    download.download = link.getAttribute("download") || "REED-AI-Call-for-Papers.png";
     download.hidden = true;
     document.body.append(download);
     download.click();

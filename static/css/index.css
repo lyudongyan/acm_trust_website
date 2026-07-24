@@ -3017,13 +3017,14 @@ body {
   height: var(--conference-banner-h);
   justify-content: space-between;
   overflow: hidden;
+  padding-block: 16px;
   color: rgba(255,255,255,.90);
   background: var(--navy);
 }
 
 .conference-banner-logo {
-  flex: 0 1 430px;
-  width: clamp(290px, 34vw, 430px);
+  flex: 0 1 270px;
+  width: 270px;
   display: block;
   border-radius: 8px;
 }
@@ -3110,6 +3111,37 @@ body {
 
 .poster-download-button { flex: 1 1 310px; }
 
+.poster-showcase {
+  padding-top: 0;
+}
+
+.poster-showcase .glass-panel {
+  overflow: hidden;
+}
+
+.poster-preview {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(30, 96, 145, .22);
+  border-radius: 18px;
+  background: rgba(255,255,255,.38);
+  box-shadow: 0 24px 52px -34px rgba(0,31,63,.58);
+}
+
+.poster-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .45s var(--ease), filter .45s ease;
+}
+
+.poster-preview:hover img,
+.poster-preview:focus-visible img {
+  transform: scale(1.008);
+  filter: saturate(1.04) contrast(1.02);
+}
+
 @media (max-width: 1180px) {
   :root {
     --conference-banner-h: 68px;
@@ -3117,9 +3149,13 @@ body {
     --header-h: 152px;
   }
 
+  .utility-bar {
+    padding-block: 14px;
+  }
+
   .conference-banner-logo {
-    flex-basis: 340px;
-    width: clamp(260px, 40vw, 340px);
+    flex-basis: 235px;
+    width: 235px;
   }
 
   .conference-brand { min-width: 220px; }
@@ -3142,8 +3178,8 @@ body {
   }
 
   .conference-banner-logo {
-    flex-basis: 230px;
-    width: 230px;
+    flex-basis: 205px;
+    width: 205px;
   }
 
   .utility-links { font-size: 11px; }
@@ -3160,6 +3196,6 @@ body {
 
 @media (max-width: 500px) {
   .utility-bar { justify-content: flex-start; }
-  .conference-banner-logo { flex-basis: 255px; width: 255px; }
+  .conference-banner-logo { flex-basis: 215px; width: 215px; }
   .utility-links { display: none; }
 }

@@ -37,13 +37,19 @@ function buildHeader() {
     <header class="site-header">
       <div class="site-progress" aria-hidden="true"><div class="site-progress-bar"></div></div>
       <div class="utility-bar">
+        <a class="conference-banner-logo" href="https://eigtrust.acm.org/trust2027/" target="_blank" rel="noopener" aria-label="Visit the official ACM TRUST 2027 conference website">
+          <img src="assets/images/acm-trust-conference-wordmark.png" width="1724" height="278" alt="ACM Conference on Trustworthy and Responsible AI and Computing Systems">
+        </a>
         <div class="utility-links">
           <span>March 7-9, 2027 &bull; Washington, DC</span>
         </div>
       </div>
       <div class="conference-header" rt-liquid-glass rt-liquid-glass-blur="11" rt-liquid-glass-scale="30" rt-liquid-glass-map="512" rt-liquid-glass-tint="rgba(255,255,255,.24)">
-        <a class="conference-brand" href="https://eigtrust.acm.org/trust2027/" target="_blank" rel="noopener" aria-label="Visit the official ACM TRUST 2027 conference website">
-          <img src="acm_logo_tablet.svg" width="255" height="80" alt="ACM TRUST 2027 conference logo and title">
+        <a class="conference-brand" href="index.html" aria-label="ACM TRUST 2027 home">
+          <span class="brand-copy">
+            <strong>ACM TRUST 2027</strong>
+            <span>REED-AI Emerging Area Track</span>
+          </span>
         </a>
         <button class="menu-toggle" type="button" aria-label="Toggle page menu" aria-expanded="false">
           <span></span><span></span>
@@ -149,9 +155,9 @@ const eventOrganizers = [
   { name: "Ahmad P. Tafti, PhD, FAMIA", affiliation: "University of Pittsburgh", image: "assets/images/ahmad-tafti.webp", link: "https://pitthexai.github.io/index.html" },
   { name: "Yanshan Wang, PhD, FAMIA", affiliation: "University of Pittsburgh", image: "assets/images/yanshan-wang.webp", link: "https://www.sci.pitt.edu/people/yanshan-wang" },
   { name: "Shyam Visweswaran, MD, PhD", affiliation: "University of Pittsburgh", image: "assets/images/shyam-visweswaran.webp", link: "https://www.sci.pitt.edu/people/shyam-visweswaran" },
-  { name: "Armaghan Moemeni, PhD, SFHEA", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.webp", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
+  { name: "Armaghan Moemeni, PhD, SFHEA", affiliation: "University of Nottingham", image: "assets/images/armaghan-moemeni.png", link: "https://www.nottingham.ac.uk/computerscience/people/armaghan.moemeni" },
   { name: "Michael Strange, PhD", affiliation: "Malm&ouml; University", image: "assets/images/michael-strange.webp", link: "https://mau.se/en/persons/michael.strange/" },
-  { name: "Prashnna K. Gyawali", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.webp", link: "https://directory.statler.wvu.edu/faculty-staff-directory/prashnna-gyawali" }
+  { name: "Prashnna K. Gyawali", affiliation: "West Virginia University", image: "assets/images/prashnna-gyawali.jpg", link: "https://directory.statler.wvu.edu/faculty-staff-directory/prashnna-gyawali" }
 ];
 
 const programCommittee = [
@@ -245,12 +251,35 @@ function setupDropdownNavigation() {
     const open = dropdown.classList.toggle("is-open");
     toggle.setAttribute("aria-expanded", String(open));
   });
+  dropdown.addEventListener("pointerleave", event => {
+    if (event.pointerType === "mouse") close();
+  });
   dropdown.querySelectorAll(".nav-dropdown a").forEach(link => link.addEventListener("click", close));
   document.addEventListener("click", event => {
     if (!dropdown.contains(event.target)) close();
   });
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") close();
+  });
+}
+
+function setupPosterDownload() {
+  const link = document.querySelector("[data-open-download]");
+  if (!link) return;
+
+  link.addEventListener("click", event => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    const preview = window.open(link.href, "_blank");
+    if (preview) preview.opener = null;
+
+    const download = document.createElement("a");
+    download.href = link.href;
+    download.download = link.getAttribute("download") || "REED-AI-Call-for-Papers-Poster.png";
+    download.hidden = true;
+    document.body.append(download);
+    download.click();
+    download.remove();
   });
 }
 
@@ -614,6 +643,7 @@ setupSectionTraces();
 setupScrollThreads();
 setupMenu();
 setupDropdownNavigation();
+setupPosterDownload();
 setupAnchorNavigation();
 setupRevealMotion();
 setupScrollEffects();

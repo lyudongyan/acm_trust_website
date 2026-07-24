@@ -2848,8 +2848,7 @@ body {
 }
 
 @media (hover: hover) and (min-width: 1181px) {
-  .has-dropdown:hover > .nav-dropdown,
-  .has-dropdown:focus-within > .nav-dropdown {
+  .has-dropdown:hover > .nav-dropdown {
     opacity: 1;
     visibility: visible;
     transform: none;
@@ -3000,4 +2999,167 @@ body {
   .focus-description { grid-column: 2; }
   .focus-description p { font-size: 15.5px; }
   .submission-actions { display: grid; grid-template-columns: 1fr; }
+}
+
+/* Restored two-tier conference banner and unclipped committee menu */
+:root {
+  --conference-banner-h: 78px;
+  --conference-nav-h: 94px;
+  --header-h: 172px;
+}
+
+.site-header {
+  z-index: 1000;
+  overflow: visible;
+}
+
+.utility-bar {
+  height: var(--conference-banner-h);
+  justify-content: space-between;
+  overflow: hidden;
+  color: rgba(255,255,255,.90);
+  background: var(--navy);
+}
+
+.conference-banner-logo {
+  flex: 0 1 430px;
+  width: clamp(290px, 34vw, 430px);
+  display: block;
+  border-radius: 8px;
+}
+
+.conference-banner-logo img {
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: .98;
+  transition: opacity .25s ease, transform .35s var(--ease);
+}
+
+.conference-banner-logo:hover img { opacity: 1; transform: translateY(-1px); }
+.conference-banner-logo:focus-visible { outline: 3px solid var(--aqua); outline-offset: 4px; }
+
+.utility-links {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: rgba(255,255,255,.88);
+  font-size: 13px;
+}
+
+.conference-header,
+.conference-header[rt-liquid-glass] {
+  height: var(--conference-nav-h);
+  overflow: visible;
+}
+
+.site-header.is-condensed .conference-header {
+  height: 78px;
+  transform: translateY(calc(-1 * var(--conference-banner-h)));
+}
+
+.conference-brand {
+  min-width: 230px;
+  border-radius: 8px;
+}
+
+.brand-copy {
+  display: grid;
+  line-height: 1;
+  transition: transform .35s var(--ease);
+}
+
+.conference-brand:hover .brand-copy { transform: translateY(-2px); }
+.conference-brand:focus-visible { outline: 3px solid var(--blue-bright); outline-offset: 5px; }
+
+.brand-copy strong {
+  color: var(--navy);
+  font-size: 27px;
+}
+
+.brand-copy span {
+  margin-top: 8px;
+  color: var(--blue);
+  font-size: 15px;
+  letter-spacing: .035em;
+  text-transform: none;
+}
+
+.page-nav,
+.page-nav > ul,
+.nav-item { overflow: visible; }
+
+.page-nav .nav-dropdown {
+  z-index: 1400;
+  box-shadow: 0 28px 72px -30px rgba(0,31,63,.78);
+}
+
+.submission-publication .feature-split {
+  grid-template-columns: minmax(0, 1.55fr) minmax(245px, .45fr);
+}
+
+.submission-actions {
+  align-items: stretch;
+  gap: 12px;
+}
+
+.submission-actions .button {
+  min-height: 50px;
+  padding-inline: 20px;
+  text-align: center;
+}
+
+.poster-download-button { flex: 1 1 310px; }
+
+@media (max-width: 1180px) {
+  :root {
+    --conference-banner-h: 68px;
+    --conference-nav-h: 84px;
+    --header-h: 152px;
+  }
+
+  .conference-banner-logo {
+    flex-basis: 340px;
+    width: clamp(260px, 40vw, 340px);
+  }
+
+  .conference-brand { min-width: 220px; }
+  .brand-copy strong { font-size: 25px; }
+  .brand-copy span { font-size: 14px; }
+  .site-header.is-condensed .conference-header {
+    height: 72px;
+    transform: translateY(calc(-1 * var(--conference-banner-h)));
+  }
+  .page-nav { top: var(--header-h); }
+  .site-header.is-condensed .page-nav { top: 72px; }
+  .submission-publication .feature-split { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --conference-banner-h: 64px;
+    --conference-nav-h: 78px;
+    --header-h: 142px;
+  }
+
+  .conference-banner-logo {
+    flex-basis: 230px;
+    width: 230px;
+  }
+
+  .utility-links { font-size: 11px; }
+  .conference-brand { min-width: 0; }
+  .brand-copy strong { font-size: 21px; }
+  .brand-copy span { max-width: 220px; font-size: 12.5px; }
+  .site-header.is-condensed .conference-header {
+    height: 66px;
+    transform: translateY(calc(-1 * var(--conference-banner-h)));
+  }
+  .page-nav { top: var(--header-h); }
+  .site-header.is-condensed .page-nav { top: 66px; }
+}
+
+@media (max-width: 500px) {
+  .utility-bar { justify-content: flex-start; }
+  .conference-banner-logo { flex-basis: 255px; width: 255px; }
+  .utility-links { display: none; }
 }
